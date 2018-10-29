@@ -1,0 +1,112 @@
+<div class="boxaligncenter" id="uploadform">
+    <form id="form" method="post" action="upload.php" enctype="multipart/form-data" >
+        <div>
+            <br />
+            <table class="generalbox" cellpadding="5">
+                <tr valign="top">
+                    <td align="right">
+                        <label for="repository">
+                            <?php
+            echo get_string("repositorylist","local_repositoryfileupload");
+            echo $OUTPUT->help_icon('repositorylist', 'local_repositoryfileupload')
+                            ?>
+                        </label>
+                    </td>
+                    <td></td>
+                    <td>
+                        <select size="1" id="repositoryid" name="repositoryid">
+                            <?php
+                            foreach ($repositories as $repositoryid => $repositoryname){
+                            ?>
+                            <option value="<?php echo $repositoryid ?>"><?php echo $repositoryname ?></option>
+                            <?php
+            }
+            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <td align="right">
+                        <label for="uploadfile">
+                            <?php
+            echo get_string("fileupload", "local_repositoryfileupload");
+            echo $OUTPUT->help_icon('fileupload', 'local_repositoryfileupload')
+                            ?>
+                        </label>
+                    </td>
+                    <td></td>
+                    <td>
+                        <input type="file" id="files" name="uploadfiles[]" multiple=""/>
+                        <div><?php echo get_string('uploadfile_msg', 'local_repositoryfileupload'); ?></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="buttons">
+                            <input type="hidden" name="courseid" value="<?php echo $courseid ?>"/>
+                            <!--<input type="hidden" name="MAX_FILE_SIZE" value="<?php /*echo $maxfilesizekb*/ ?>"/>-->
+                            <input type="submit" name="upload" id="uploadbutton"
+                                   value="<?php print_string('upload', 'local_repositoryfileupload'); ?>"/>
+                            <input type="submit" name="cancel"
+                                   value="<?php print_string('cancel', 'local_repositoryfileupload'); ?>"/>
+                            <input type="hidden" name="nonceid" value="<?php echo $nonceid ?>"/>
+                            <input type="hidden" name="nonce" value="<?php echo $nonce ?>"/>
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+
+            <table>
+
+                <tr>
+                    <td style="word-break:break-all;">
+                        <br/>
+                        <?php
+        echo $OUTPUT->container_start();
+                        ?>
+                        <div id="selectedFiles"></div>
+                        <?php
+        echo $OUTPUT->container_end();
+                        ?>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </form>
+
+    <script type="text/javascript">
+
+        var selDiv = "";
+
+        document.addEventListener("DOMContentLoaded", init, false);
+
+        function init() {
+            document.querySelector('#files').addEventListener('change', handleFileSelect, false);
+            selDiv = document.querySelector("#selectedFiles");
+        }
+
+        function handleFileSelect(e) {
+
+            if (!e.target.files) return;
+
+            selDiv.innerHTML = "";
+
+            selDiv.innerHTML += "<b>Files selected for upload...</b><br/><br/>";
+
+            var files = e.target.files;
+            for (var i = 0; i < files.length; i++) {
+                var f = files[i];
+
+                selDiv.innerHTML += f.name + "<br/>";
+
+            }
+
+        }
+
+    </script>
+
+</div>
+
+
