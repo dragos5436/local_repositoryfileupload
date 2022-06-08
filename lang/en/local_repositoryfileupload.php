@@ -76,3 +76,6 @@ $string['errornotification'] = 'There are some errros in uploaded files';
 $string['uploadfilescount'] = '{$a->count} files uploaded under {$a->path}';
 $string['uploadsuccess'] = '{$a} uploaded successfully';
 $string['deletesuccess'] = '{$a} deleted successfully';
+
+//Privacy
+$string['privacy:metadata'] = 'plugin does not store any personal data.';
